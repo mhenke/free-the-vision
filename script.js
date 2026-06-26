@@ -21,6 +21,13 @@
 
   // --- Impact Number Count-Up ---
   function initCountUp() {
+    // Add aria-live to impact grid for screen readers
+    var impactGrid = document.querySelector('.impact__grid');
+    if (impactGrid) {
+      impactGrid.setAttribute('aria-live', 'polite');
+      impactGrid.setAttribute('aria-atomic', 'true');
+    }
+
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
@@ -33,6 +40,9 @@
           if (el.dataset.animated === 'true' || el.getAttribute('data-target') === '450') return;
           el.dataset.animated = 'true';
 
+          // Announce start for screen readers
+          el.setAttribute('aria-label', 'Loading');
+
           function animate(timestamp) {
             if (!startTime) startTime = timestamp;
             var progress = Math.min((timestamp - startTime) / duration, 1);
@@ -43,6 +53,8 @@
               requestAnimationFrame(animate);
             } else {
               el.textContent = target + suffix;
+              // Announce final value
+              el.setAttribute('aria-label', target + suffix + ' total');
             }
           }
 
@@ -62,25 +74,33 @@
     var shareText = '\uD83D\uDC33 Copilot Vision has been trapped in preview since 2025. Time to free it! #FreeTheVision';
     var shareUrl = 'https://mhenke.github.io/free-the-vision/';
 
+    function openShare(btn) {
+      var platform = btn.getAttribute('data-share');
+      var url;
+
+      if (platform === 'twitter') {
+        url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
+      } else if (platform === 'linkedin') {
+        url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+      }
+
+      if (url) {
+        window.open(url, '_blank', 'width=600,height=400');
+      }
+    }
+
     document.querySelectorAll('[data-share]').forEach(function (btn) {
-      btn.addEventListener('click', function () {
-        var platform = btn.getAttribute('data-share');
-        var url;
-
-        if (platform === 'twitter') {
-          url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
-        } else if (platform === 'linkedin') {
-          url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
-        }
-
-        if (url) {
-          window.open(url, '_blank', 'width=600,height=400');
+      btn.addEventListener('click', function () { openShare(btn); });
+      btn.addEventListener('keydown', function (e) {
+        if (e.key === 'Enter' || e.key === ' ') {
+          e.preventDefault();
+          openShare(btn);
         }
       });
     });
   }
 
-  // --- Smooth Scroll ---
+  // --- Smooth Scroll with Focus Management ---
   function initSmoothScroll() {
     document.querySelectorAll('a[href^="#"]').forEach(function (link) {
       link.addEventListener('click', function (e) {
@@ -89,7 +109,15 @@
         var target = document.querySelector(targetId);
         if (target) {
           e.preventDefault();
+          // Set tabindex if not already focusable for focus management
+          if (!target.getAttribute('tabindex') && target.tagName !== 'A' && target.tagName !== 'BUTTON') {
+            target.setAttribute('tabindex', '-1');
+          }
           target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          // Move focus to target after scroll completes
+          setTimeout(function () {
+            target.focus({ preventScroll: true });
+          }, 500);
         }
       });
     });
