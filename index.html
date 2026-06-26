@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Free the Vision — Free Copilot Vision from Preview</title>
+  <meta name="description" content="Copilot Vision has been trapped in preview since 2025. Join the campaign to free image/vision capabilities for all GitHub Copilot users.">
+  <meta property="og:title" content="Free the Vision — Free Copilot Vision from Preview">
+  <meta property="og:description" content="Copilot Vision has been trapped in preview since 2025. Join the campaign to free image/vision capabilities for all GitHub Copilot users.">
+  <meta property="og:type" content="website">
+  <meta name="twitter:card" content="summary_large_image">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <!-- Navigation -->
+  <nav class="nav" aria-label="Primary">
+    <div class="nav__inner">
+      <a href="#hero" class="nav__logo">🐋 Free the Vision</a>
+      <div class="nav__links">
+        <a href="#story">The Story</a>
+        <a href="#state">Current State</a>
+        <a href="#demand">The Demand</a>
+        <a href="#help">Take Action</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Hero -->
+  <section id="hero" class="hero">
+    <div class="hero__content">
+      <p class="hero__eyebrow">A GitHub Community Campaign</p>
+      <h1 class="hero__title">FREE<br>THE VISION</h1>
+      <p class="hero__subtitle">Copilot Vision has been trapped in preview since 2025.<br>The community wants it freed.</p>
+      <div class="hero__cta">
+        <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--primary">Join the Discussion</a>
+        <a href="#story" class="btn btn--ghost">Read the Story</a>
+      </div>
+    </div>
+    <div class="hero__whale" aria-hidden="true">
+      <svg viewBox="0 0 200 100" class="whale-silhouette">
+        <path d="M30,60 Q40,30 70,35 Q90,20 120,30 Q150,25 170,40 Q185,50 175,65 Q165,80 140,75 Q120,85 90,80 Q60,85 40,75 Q25,70 30,60 Z" fill="currentColor"/>
+        <path d="M170,40 Q190,35 195,25 Q185,30 175,32 Z" fill="currentColor"/>
+        <circle cx="60" cy="50" r="3" fill="var(--bg)"/>
+      </svg>
+    </div>
+    <div class="hero__wave" aria-hidden="true">
+      <svg viewBox="0 0 1440 120" preserveAspectRatio="none">
+        <path d="M0,60 C240,120 480,0 720,60 C960,120 1200,0 1440,60 L1440,120 L0,120 Z" fill="var(--bg)"/>
+      </svg>
+    </div>
+  </section>
+
+  <!-- The Story -->
+  <section id="story" class="story">
+    <div class="story__grid">
+      <div class="story__col story__col--left">
+        <img
+          src="https://images.unsplash.com/photo-1768345074605-d760b5d2ecd6?auto=format&fit=crop&w=800&q=80"
+          alt="Orca whale surfacing in calm ocean waters with misty mountains in background"
+          class="story__image"
+          loading="lazy"
+          width="800"
+          height="533"
+        >
+        <h2 class="story__heading">Remember Keiko?</h2>
+        <p>In 1993, a killer whale named Keiko was trapped in a small tank at a Mexican amusement park. He was sick, underweight, and performing tricks for tourists.</p>
+        <p>A movie changed everything. <em>Free Willy</em> captured the world's imagination, and a movement was born. Thousands of people demanded Keiko's freedom.</p>
+        <p>They succeeded. Keiko was eventually released into the wild.</p>
+      </div>
+      <div class="story__col story__col--right">
+        <img
+          src="https://images.unsplash.com/photo-1777883672970-7e9a0745f41d?auto=format&fit=crop&w=800&q=80"
+          alt="Cinematic golden hour waves crashing against ocean cliffs at sunset"
+          class="story__image"
+          loading="lazy"
+          width="800"
+          height="533"
+        >
+        <h2 class="story__heading">Vision is Trapped</h2>
+        <p>Since early 2025, GitHub Copilot has had image and vision capabilities. Upload a screenshot, and Copilot can analyze it. Feed it a diagram, and it understands. Show it your UI, and it helps you build it.</p>
+        <p>But it's been stuck in <strong>public preview</strong> for over a year. Some developers have it. Others don't. It depends on your plan, your IDE version, your region, your enterprise policy.</p>
+        <p>The CLI is fully GA. The terminal interface is fully GA. Plan mode, autopilot, agents, model selection — all GA.</p>
+        <p><strong>Vision is the last feature still in the tank.</strong></p>
+      </div>
+    </div>
+  </section>
+
+  <!-- The State of Things -->
+  <section id="state" class="state">
+    <div class="state__inner">
+      <h2 class="section-title">The State of Things</h2>
+      <p class="section-subtitle">What's free and what's still behind the glass.</p>
+      <div class="state__grid">
+        <div class="state__item state__item--ga">
+          <span class="state__badge state__badge--ga">GA</span>
+          <h3>Copilot CLI</h3>
+          <p>Fully autonomous terminal agent. Plans, builds, reviews, and ships — all from your command line.</p>
+          <span class="state__date">Feb 2026</span>
+        </div>
+        <div class="state__item state__item--ga">
+          <span class="state__badge state__badge--ga">GA</span>
+          <h3>Terminal Interface</h3>
+          <p>Tabbed layout for Issues, PRs, and Gists. Interactive tool configuration. Theme-aware. Accessible.</p>
+          <span class="state__date">Jun 2026</span>
+        </div>
+        <div class="state__item state__item--ga">
+          <span class="state__badge state__badge--ga">GA</span>
+          <h3>Plan & Autopilot</h3>
+          <p>Press Shift+Tab for structured plans. Let Copilot run end-to-end in autopilot mode. You choose the control level.</p>
+          <span class="state__date">Feb 2026</span>
+        </div>
+        <div class="state__item state__item--ga">
+          <span class="state__badge state__badge--ga">GA</span>
+          <h3>Model Selection</h3>
+          <p>Claude Opus 4.6, Sonnet 4.6, GPT-5.3-Codex, Gemini 3 Pro. Switch mid-session with /model.</p>
+          <span class="state__date">Feb 2026</span>
+        </div>
+        <div class="state__item state__item--ga">
+          <span class="state__badge state__badge--ga">GA</span>
+          <h3>Specialized Agents</h3>
+          <p>Explore, Task, Code Review, Plan — Copilot delegates to focused sub-agents automatically.</p>
+          <span class="state__date">Feb 2026</span>
+        </div>
+        <div class="state__item state__item--preview">
+          <span class="state__badge state__badge--preview">PREVIEW</span>
+          <h3>Vision & Image Upload</h3>
+          <p>Upload screenshots, diagrams, UI mockups. Copilot analyzes and helps you build. But only if you have access. Only if your setup qualifies.</p>
+          <span class="state__date">Since 2025 — still waiting</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- The Demand -->
+  <section id="demand" class="demand">
+    <div class="demand__inner">
+      <blockquote class="demand__quote">
+        <p>"Vision features involve additional privacy, security, and processing considerations, so rollout tends to be gradual."</p>
+        <cite>— GitHub, on why Vision is still in preview</cite>
+      </blockquote>
+      <p class="demand__text">We understand. Privacy matters. Security matters. But the community has been waiting for over a year. The CLI is fully autonomous. The terminal interface is fully polished. Vision is the last piece.</p>
+      <p class="demand__text"><strong>It's time to free the vision.</strong></p>
+      <div class="demand__cta">
+        <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--primary btn--large">
+          Star the Discussion →
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- How to Help -->
+  <section id="help" class="help">
+    <div class="help__inner">
+      <h2 class="section-title">How You Can Help</h2>
+      <div class="help__grid">
+        <div class="help__item help__item--primary">
+          <span class="help__number">1</span>
+          <h3>Star the Discussion</h3>
+          <p>The GitHub Community discussion <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener">#188040</a> is where the movement lives. Star it. Comment. Share your use case. Show GitHub that developers need this.</p>
+          <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--accent">Open Discussion →</a>
+        </div>
+        <div class="help__item">
+          <span class="help__number">2</span>
+          <h3>Spread the Word</h3>
+          <p>Share this campaign on social media. Tag GitHub. Tag @githubcopilot. Use the hashtag. The louder we are, the harder we are to ignore.</p>
+          <div class="help__share">
+            <button class="btn btn--share" data-share="twitter" aria-label="Share on Twitter">Twitter</button>
+            <button class="btn btn--share" data-share="linkedin" aria-label="Share on LinkedIn">LinkedIn</button>
+          </div>
+        </div>
+        <div class="help__item">
+          <span class="help__number">3</span>
+          <h3>Tell Your Team</h3>
+          <p>If your team uses Copilot, ask your admin about Vision access. File internal requests. The more organizations asking, the louder the signal.</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Impact -->
+  <section id="impact" class="impact">
+    <div class="impact__inner">
+      <h2 class="section-title">The Movement So Far</h2>
+      <div class="impact__grid">
+        <div class="impact__stat">
+          <span class="impact__number" data-target="450" data-suffix="+">0</span>
+          <span class="impact__label">Days in preview</span>
+        </div>
+        <div class="impact__stat">
+          <button class="impact__number impact__number--petition" data-target="0">0</button>
+          <span class="impact__label">Voices demanding freedom</span>
+          <button class="btn btn--small impact__sign" id="sign-petition">Sign the Petition</button>
+        </div>
+        <div class="impact__stat">
+          <span class="impact__number" data-target="500" data-suffix="+">0</span>
+          <span class="impact__label">Stars on the discussion</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Footer -->
+  <footer class="footer">
+    <div class="footer__inner">
+      <p class="footer__note">Not affiliated with GitHub, Inc. — just developers who want vision freed.</p>
+      <div class="footer__links">
+        <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener">Community Discussion</a>
+        <a href="https://github.com/features/copilot" target="_blank" rel="noopener">GitHub Copilot</a>
+        <a href="https://docs.github.com/en/copilot" target="_blank" rel="noopener">Copilot Docs</a>
+      </div>
+      <p class="footer__copy">Built with 🐋 by the community. June 2026.</p>
+    </div>
+  </footer>
+
+  <script src="script.js"></script>
+</body>
+</html>
