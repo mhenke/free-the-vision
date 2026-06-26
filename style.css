@@ -724,6 +724,12 @@ section[id]:focus-visible {
   margin-bottom: 0.3em;
 }
 
+.impact__reactions--discussion {
+  margin-top: 1em;
+  padding-top: 1em;
+  border-top: 1px solid oklch(0.10 0.015 250 / 0.15);
+}
+
 .impact__label--small {
   font-size: 0.85rem;
   font-weight: 500;
