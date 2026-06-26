@@ -6,6 +6,8 @@
 (function () {
   'use strict';
 
+  var prefersReducedMotion = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
   // --- Days in Preview Counter ---
   function initDaysCounter() {
     var els = document.querySelectorAll('.impact__number[data-target]');
@@ -21,11 +23,24 @@
 
   // --- Impact Number Count-Up ---
   function initCountUp() {
-    // Add aria-live to impact grid for screen readers
-    var impactGrid = document.querySelector('.impact__grid');
-    if (impactGrid) {
-      impactGrid.setAttribute('aria-live', 'polite');
-      impactGrid.setAttribute('aria-atomic', 'true');
+    // Add aria-live to the live signal block for screen readers
+    var impactSignal = document.querySelector('.impact__signal');
+    if (impactSignal) {
+      impactSignal.setAttribute('aria-live', 'polite');
+      impactSignal.setAttribute('aria-atomic', 'true');
+    }
+
+    if (prefersReducedMotion) {
+      document.querySelectorAll('.impact__number[data-target]').forEach(function (el) {
+        var target = parseInt(el.getAttribute('data-target') || '0', 10);
+        var suffix = el.getAttribute('data-suffix') || '';
+
+        if (String(target) === '450') return;
+
+        el.textContent = target + suffix;
+        el.setAttribute('aria-label', target + suffix + ' total');
+      });
+      return;
     }
 
     var observer = new IntersectionObserver(function (entries) {
@@ -117,7 +132,7 @@
           if (!target.getAttribute('tabindex') && target.tagName !== 'A' && target.tagName !== 'BUTTON') {
             target.setAttribute('tabindex', '-1');
           }
-          target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+          target.scrollIntoView({ behavior: prefersReducedMotion ? 'auto' : 'smooth', block: 'start' });
           // Move focus to target after scroll completes
           setTimeout(function () {
             target.focus({ preventScroll: true });
@@ -132,40 +147,55 @@
     var nav = document.querySelector('.nav');
     if (!nav) return;
 
-    window.addEventListener('scroll', function () {
-      if (window.scrollY > 100) {
-        nav.style.background = 'rgba(255, 255, 255, 0.95)';
-      } else {
-        nav.style.background = 'rgba(255, 255, 255, 0.8)';
-      }
-    });
+    var scrolled = false;
+
+    function updateNavState() {
+      var next = window.scrollY > 100;
+      if (next === scrolled) return;
+      scrolled = next;
+      nav.classList.toggle('nav--scrolled', scrolled);
+    }
+
+    updateNavState();
+    window.addEventListener('scroll', updateNavState, { passive: true });
   }
 
   // --- Nav Active State ---
   function initNavActive() {
     var sections = document.querySelectorAll('section[id]');
     var navLinks = document.querySelectorAll('.nav__links a');
+    var activeId = '';
+
+    function setActive(id) {
+      if (!id || id === activeId) return;
+      activeId = id;
+
+      navLinks.forEach(function (link) {
+        var isActive = link.getAttribute('href') === '#' + id;
+        link.classList.toggle('is-active', isActive);
+        if (isActive) {
+          link.setAttribute('aria-current', 'page');
+        } else {
+          link.removeAttribute('aria-current');
+        }
+      });
+    }
     
     var observer = new IntersectionObserver(function (entries) {
       entries.forEach(function (entry) {
         if (entry.isIntersecting) {
-          var id = entry.target.getAttribute('id');
-          navLinks.forEach(function (link) {
-            if (link.getAttribute('href') === '#' + id) {
-              link.style.color = 'var(--ink)';
-              link.style.fontWeight = '600';
-            } else {
-              link.style.color = '';
-              link.style.fontWeight = '';
-            }
-          });
+          setActive(entry.target.getAttribute('id'));
         }
       });
     }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
-    
+
     sections.forEach(function (section) {
       observer.observe(section);
     });
+
+    if (sections[0]) {
+      setActive(sections[0].getAttribute('id'));
+    }
   }
 
   // --- Live GitHub Reactions ---
@@ -234,32 +264,27 @@
         updateReactionsDOM(total, reactions);
       })
       .catch(function () {
-        var statEls = document.querySelectorAll('.impact__stat');
-        statEls.forEach(function (el) {
-          if (el.querySelector('.impact__reactions')) {
-            el.style.display = 'none';
-          }
-        });
+        var reactions = document.querySelector('.impact__signal .impact__reactions');
+        if (reactions) {
+          reactions.style.display = 'none';
+        }
       });
   }
 
   function updateReactionsDOM(total, reactions) {
-    var statEls = document.querySelectorAll('.impact__stat');
-    var targetStat = null;
-    statEls.forEach(function (el) {
-      var num = el.querySelector('.impact__number');
-      if (num && num.getAttribute('data-target') === '11') {
-        targetStat = el;
-      }
-    });
-    if (!targetStat) return;
+    var targetSignal = document.querySelector('.impact__signal');
+    if (!targetSignal) return;
 
-    var numberEl = targetStat.querySelector('.impact__number');
+    var numberEl = targetSignal.querySelector('.impact__number');
     if (numberEl) {
       numberEl.setAttribute('data-target', String(total));
+      if (prefersReducedMotion) {
+        numberEl.textContent = String(total);
+        numberEl.setAttribute('aria-label', total + ' total');
+      }
     }
 
-    var container = targetStat.querySelector('.impact__reactions');
+    var container = targetSignal.querySelector('.impact__reactions');
     if (container) {
       container.innerHTML = '';
       reactions.forEach(function (r) {
@@ -319,7 +344,7 @@
         }
       });
       backToTop.addEventListener('click', function () {
-        window.scrollTo({ top: 0, behavior: 'smooth' });
+        window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         var nav = document.querySelector('.nav__logo');
         if (nav) setTimeout(function () { nav.focus(); }, 500);
       });

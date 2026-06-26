@@ -9,6 +9,7 @@
   <meta property="og:description" content="Copilot Vision has been trapped in preview since 2025. Join the campaign to free image/vision capabilities for all GitHub Copilot users.">
   <meta property="og:type" content="website">
   <meta name="twitter:card" content="summary_large_image">
+  <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Bungee&family=Sora:wght@400;500;600;700&display=swap" rel="stylesheet">
@@ -38,7 +39,7 @@
   <!-- Hero -->
   <section id="hero" class="hero">
     <div class="hero__content">
-      <p class="hero__eyebrow">A GitHub Community Campaign</p>
+      <p class="hero__eyebrow">A GitHub community campaign</p>
       <h1 class="hero__title">FREE<br>THE VISION</h1>
       <p class="hero__subtitle">Copilot Vision has been trapped in preview since 2025.<br>The community wants it freed.</p>
       <div class="hero__cta">
@@ -63,6 +64,8 @@
           alt="Orca whale surfacing in calm ocean waters with misty mountains in background"
           class="story__image"
           loading="lazy"
+          srcset="https://images.unsplash.com/photo-1768345074605-d760b5d2ecd6?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1768345074605-d760b5d2ecd6?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1768345074605-d760b5d2ecd6?auto=format&fit=crop&w=1600&q=80 1600w"
+          sizes="(max-width: 768px) calc(100vw - 2rem), 560px"
           width="800"
           height="533"
           onerror="this.style.display='none'"
@@ -78,6 +81,8 @@
           alt="Cinematic golden hour waves crashing against ocean cliffs at sunset"
           class="story__image"
           loading="lazy"
+          srcset="https://images.unsplash.com/photo-1777883672970-7e9a0745f41d?auto=format&fit=crop&w=800&q=80 800w, https://images.unsplash.com/photo-1777883672970-7e9a0745f41d?auto=format&fit=crop&w=1200&q=80 1200w, https://images.unsplash.com/photo-1777883672970-7e9a0745f41d?auto=format&fit=crop&w=1600&q=80 1600w"
+          sizes="(max-width: 768px) calc(100vw - 2rem), 560px"
           width="800"
           height="533"
           onerror="this.style.display='none'"
@@ -207,21 +212,18 @@
   <section id="impact" class="impact">
     <div class="impact__inner">
       <h2 class="section-title">The Movement So Far</h2>
-      <div class="impact__grid">
-        <div class="impact__stat">
-          <span class="impact__number" data-target="450" data-suffix="+">0</span>
-          <span class="impact__label">Days in preview</span>
-        </div>
-        <div class="impact__stat">
-          <span class="impact__number" data-target="8">0</span>
-          <span class="impact__label">Voices demanding freedom</span>
-          <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--accent btn--small">Sign the Petition <span aria-hidden="true">→</span><span class="sr-only">(opens in new tab)</span></a>
-        </div>
-        <div class="impact__stat">
-          <span class="impact__number" data-target="11">0</span>
-          <span class="impact__label">Total reactions across all comments</span>
+      <div class="impact__layout">
+        <blockquote class="impact__quote">
+          <p>GitHub already moved the rest of Copilot to GA. Vision is the holdout.</p>
+          <cite>Discussion #188040 keeps the pressure on while the API allows it.</cite>
+        </blockquote>
+        <div class="impact__signal">
+          <p class="impact__signal-text"><span class="impact__number" data-target="11">11</span> reactions across the discussion, and counting when GitHub lets the API through.</p>
           <div class="impact__reactions"></div>
-          <span class="impact__label impact__label--small">Reactions on the discussion</span>
+          <div class="impact__actions">
+            <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--accent btn--small">Sign the Petition <span aria-hidden="true">→</span><span class="sr-only">(opens in new tab)</span></a>
+            <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="impact__link">Read discussion #188040 <span aria-hidden="true">↗</span><span class="sr-only">(opens in new tab)</span></a>
+          </div>
         </div>
       </div>
       <p class="impact__source">Data from <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener">GitHub Discussion #188040</a></p>
