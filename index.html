@@ -23,7 +23,10 @@
   <nav class="nav" aria-label="Primary">
     <div class="nav__inner">
       <a href="#hero" class="nav__logo">🐋 Free the Vision</a>
-      <div class="nav__links">
+      <button class="nav__toggle" aria-label="Toggle navigation" aria-expanded="false" aria-controls="nav-links">
+        <span></span><span></span><span></span>
+      </button>
+      <div id="nav-links" class="nav__links">
         <a href="#story">The Story</a>
         <a href="#state">Current State</a>
         <a href="#demand">The Demand</a>
@@ -68,6 +71,7 @@
           loading="lazy"
           width="800"
           height="533"
+          onerror="this.style.display='none'"
         >
         <h2 class="story__heading">Remember Keiko?</h2>
         <p>In 1993, a killer whale named Keiko was trapped in a small tank at a Mexican amusement park. He was sick, underweight, and performing tricks for tourists.</p>
@@ -82,6 +86,7 @@
           loading="lazy"
           width="800"
           height="533"
+          onerror="this.style.display='none'"
         >
         <h2 class="story__heading">Vision is Trapped</h2>
         <p>Since early 2025, GitHub Copilot has had image and vision capabilities. Upload a screenshot, and Copilot can analyze it. Feed it a diagram, and it understands. Show it your UI, and it helps you build it.</p>
@@ -167,7 +172,7 @@
       <p class="demand__text"><strong>It's time to free the vision.</strong></p>
       <div class="demand__cta">
         <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--primary btn--large">
-          Star the Discussion →
+          Upvote the Discussion →
         </a>
       </div>
     </div>
@@ -180,8 +185,8 @@
       <div class="help__grid">
         <div class="help__item help__item--primary">
           <span class="help__number">1</span>
-          <h3>Star the Discussion</h3>
-          <p>The GitHub Community discussion <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener">#188040</a> is where the movement lives. Star it, comment, share your use case. Show GitHub that developers need this.</p>
+          <h3>Upvote the Discussion</h3>
+          <p>The GitHub Community discussion <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener">#188040</a> is where the movement lives. Upvote it, comment, share your use case. Show GitHub that developers need this.</p>
           <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--accent">Open Discussion →</a>
         </div>
         <div class="help__item">
@@ -191,6 +196,8 @@
           <div class="help__share">
             <button class="btn btn--share" data-share="twitter" aria-label="Share on Twitter">Twitter</button>
             <button class="btn btn--share" data-share="linkedin" aria-label="Share on LinkedIn">LinkedIn</button>
+            <button class="btn btn--share" data-share="bluesky" aria-label="Share on Bluesky">Bluesky</button>
+            <button class="btn btn--share" data-share="hackernews" aria-label="Share on Hacker News">HN</button>
           </div>
         </div>
         <div class="help__item">
@@ -217,14 +224,9 @@
           <a href="https://github.com/orgs/community/discussions/188040" target="_blank" rel="noopener" class="btn btn--accent btn--small">Sign the Petition <span aria-hidden="true">→</span><span class="sr-only">(opens in new tab)</span></a>
         </div>
         <div class="impact__stat">
-          <span class="impact__number" data-target="12">0</span>
+          <span class="impact__number" data-target="11">0</span>
           <span class="impact__label">Total reactions across all comments</span>
-          <div class="impact__reactions">
-            <span class="impact__emoji" role="img" aria-label="7 thumbs up">👍 <strong>7</strong></span>
-            <span class="impact__emoji" role="img" aria-label="2 rockets">🚀 <strong>2</strong></span>
-            <span class="impact__emoji" role="img" aria-label="1 hooray">🎉 <strong>1</strong></span>
-            <span class="impact__emoji" role="img" aria-label="1 heart">❤️ <strong>1</strong></span>
-          </div>
+          <div class="impact__reactions"></div>
           <span class="impact__label impact__label--small">Reactions on the discussion</span>
         </div>
       </div>
@@ -245,6 +247,7 @@
     </div>
   </footer>
 
+  <button class="back-to-top" aria-label="Back to top" title="Back to top">↑</button>
   <script src="script.js"></script>
 </body>
 </html>

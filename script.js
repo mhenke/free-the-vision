@@ -82,6 +82,10 @@
         url = 'https://twitter.com/intent/tweet?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
       } else if (platform === 'linkedin') {
         url = 'https://www.linkedin.com/sharing/share-offsite/?url=' + encodeURIComponent(shareUrl);
+      } else if (platform === 'bluesky') {
+        url = 'https://bsky.app/intent/compose?text=' + encodeURIComponent(shareText) + '&url=' + encodeURIComponent(shareUrl);
+      } else if (platform === 'hackernews') {
+        url = 'https://news.ycombinator.com/submitlink?u=' + encodeURIComponent(shareUrl) + '&t=' + encodeURIComponent(shareText);
       }
 
       if (url) {
@@ -164,6 +168,106 @@
     });
   }
 
+  // --- Live GitHub Reactions ---
+  var REACTION_MAP = {
+    THUMBS_UP: '👍',
+    THUMBS_DOWN: '👎',
+    LAUGH: '😄',
+    CONFUSED: '😕',
+    HEART: '❤️',
+    HOORAY: '🎉',
+    ROCKET: '🚀',
+    EYES: '👀',
+    THINKING: '🤔',
+    RED_HEART: '❤️',
+  };
+
+  function aggregateReactionGroups(reactionGroups) {
+    var totals = {};
+    reactionGroups.forEach(function (group) {
+      var count = group.users.totalCount;
+      if (count > 0) {
+        totals[group.content] = (totals[group.content] || 0) + count;
+      }
+    });
+    return totals;
+  }
+
+  function fetchReactions() {
+    var query = '{ repository(owner: "community", name: "community") { discussion(number: 188040) { reactionGroups { content users { totalCount } } comments(first: 100) { nodes { reactionGroups { content users { totalCount } } } } } } }';
+
+    fetch('https://api.github.com/graphql', {
+      method: 'POST',
+      headers: { 'Accept': 'application/vnd.github+json' },
+      body: JSON.stringify({ query: query }),
+    })
+      .then(function (res) {
+        if (!res.ok) throw new Error('GitHub API ' + res.status);
+        return res.json();
+      })
+      .then(function (data) {
+        var discussion = data.data && data.data.repository && data.data.repository.discussion;
+        if (!discussion) throw new Error('No discussion data');
+
+        var totals = aggregateReactionGroups(discussion.reactionGroups);
+
+        discussion.comments.nodes.forEach(function (comment) {
+          var commentTotals = aggregateReactionGroups(comment.reactionGroups);
+          Object.keys(commentTotals).forEach(function (key) {
+            totals[key] = (totals[key] || 0) + commentTotals[key];
+          });
+        });
+
+        var reactions = [];
+        var total = 0;
+        Object.keys(totals).forEach(function (content) {
+          var emoji = REACTION_MAP[content];
+          if (emoji && totals[content] > 0) {
+            reactions.push({ emoji: emoji, count: totals[content] });
+            total += totals[content];
+          }
+        });
+
+        if (reactions.length === 0) throw new Error('No reactions found');
+
+        reactions.sort(function (a, b) { return b.count - a.count; });
+        updateReactionsDOM(total, reactions);
+      })
+      .catch(function () {
+        // API failed — leave reactions empty
+      });
+  }
+
+  function updateReactionsDOM(total, reactions) {
+    var statEls = document.querySelectorAll('.impact__stat');
+    var targetStat = null;
+    statEls.forEach(function (el) {
+      var num = el.querySelector('.impact__number');
+      if (num && num.getAttribute('data-target') === '11') {
+        targetStat = el;
+      }
+    });
+    if (!targetStat) return;
+
+    var numberEl = targetStat.querySelector('.impact__number');
+    if (numberEl) {
+      numberEl.setAttribute('data-target', String(total));
+    }
+
+    var container = targetStat.querySelector('.impact__reactions');
+    if (container) {
+      container.innerHTML = '';
+      reactions.forEach(function (r) {
+        var span = document.createElement('span');
+        span.className = 'impact__emoji';
+        span.setAttribute('role', 'img');
+        span.setAttribute('aria-label', r.count + ' ' + r.emoji);
+        span.innerHTML = r.emoji + ' <strong>' + r.count + '</strong>';
+        container.appendChild(span);
+      });
+    }
+  }
+
   // --- Init ---
   document.addEventListener('DOMContentLoaded', function () {
     initDaysCounter();
@@ -172,5 +276,48 @@
     initSmoothScroll();
     initNavScroll();
     initNavActive();
+    fetchReactions();
+
+    // Mobile nav toggle
+    var toggle = document.querySelector('.nav__toggle');
+    var navLinks = document.querySelector('.nav__links');
+    if (toggle && navLinks) {
+      toggle.addEventListener('click', function () {
+        var expanded = toggle.getAttribute('aria-expanded') === 'true';
+        toggle.setAttribute('aria-expanded', String(!expanded));
+        navLinks.classList.toggle('is-open');
+      });
+      navLinks.querySelectorAll('a').forEach(function (link) {
+        link.addEventListener('click', function () {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+        });
+      });
+      document.addEventListener('keydown', function (e) {
+        if (e.key === 'Escape' && navLinks.classList.contains('is-open')) {
+          toggle.setAttribute('aria-expanded', 'false');
+          navLinks.classList.remove('is-open');
+          toggle.focus();
+        }
+      });
+    }
+
+    // Back to top
+    var backToTop = document.querySelector('.back-to-top');
+    if (backToTop) {
+      var hero = document.querySelector('.hero');
+      window.addEventListener('scroll', function () {
+        if (hero && window.scrollY > hero.offsetHeight) {
+          backToTop.classList.add('is-visible');
+        } else {
+          backToTop.classList.remove('is-visible');
+        }
+      });
+      backToTop.addEventListener('click', function () {
+        window.scrollTo({ top: 0, behavior: 'smooth' });
+        var nav = document.querySelector('.nav__logo');
+        if (nav) setTimeout(function () { nav.focus(); }, 500);
+      });
+    }
   });
 })();
