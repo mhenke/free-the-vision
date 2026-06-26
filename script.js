@@ -10,7 +10,7 @@
 
   // --- Days in Preview Counter ---
   function initDaysCounter() {
-    var els = document.querySelectorAll('.impact__number[data-target]');
+    var els = document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]');
     els.forEach(function (el) {
       if (el.getAttribute('data-target') === '450') {
         var startDate = new Date('2025-03-01');
@@ -31,7 +31,7 @@
     }
 
     if (prefersReducedMotion) {
-      document.querySelectorAll('.impact__number[data-target]').forEach(function (el) {
+      document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]').forEach(function (el) {
         var target = parseInt(el.getAttribute('data-target') || '0', 10);
         var suffix = el.getAttribute('data-suffix') || '';
 
@@ -79,7 +79,7 @@
       });
     }, { threshold: 0.3 });
 
-    document.querySelectorAll('.impact__number[data-target]').forEach(function (el) {
+    document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]').forEach(function (el) {
       observer.observe(el);
     });
   }
