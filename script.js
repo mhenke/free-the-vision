@@ -109,6 +109,33 @@
     });
   }
 
+  // --- Nav Active State ---
+  function initNavActive() {
+    var sections = document.querySelectorAll('section[id]');
+    var navLinks = document.querySelectorAll('.nav__links a');
+    
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) {
+          var id = entry.target.getAttribute('id');
+          navLinks.forEach(function (link) {
+            if (link.getAttribute('href') === '#' + id) {
+              link.style.color = 'var(--ink)';
+              link.style.fontWeight = '600';
+            } else {
+              link.style.color = '';
+              link.style.fontWeight = '';
+            }
+          });
+        }
+      });
+    }, { threshold: 0.3, rootMargin: '-80px 0px -50% 0px' });
+    
+    sections.forEach(function (section) {
+      observer.observe(section);
+    });
+  }
+
   // --- Init ---
   document.addEventListener('DOMContentLoaded', function () {
     initDaysCounter();
@@ -116,5 +143,6 @@
     initShareButtons();
     initSmoothScroll();
     initNavScroll();
+    initNavActive();
   });
 })();
