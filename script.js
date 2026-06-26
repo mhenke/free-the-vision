@@ -234,7 +234,12 @@
         updateReactionsDOM(total, reactions);
       })
       .catch(function () {
-        // API failed — leave reactions empty
+        var statEls = document.querySelectorAll('.impact__stat');
+        statEls.forEach(function (el) {
+          if (el.querySelector('.impact__reactions')) {
+            el.style.display = 'none';
+          }
+        });
       });
   }
 
