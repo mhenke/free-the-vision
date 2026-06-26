@@ -529,46 +529,29 @@ section[id]:focus-visible {
 /* --- Timeline --- */
 .timeline {
   position: relative;
-  display: flex;
+  display: grid;
   gap: var(--space-md);
-  overflow-x: auto;
-  padding: var(--space-lg) 0 var(--space-sm);
-  scroll-snap-type: x mandatory;
-  -webkit-overflow-scrolling: touch;
-  mask-image: linear-gradient(to right, black 85%, transparent 100%);
-  -webkit-mask-image: linear-gradient(to right, black 85%, transparent 100%);
-  padding-right: var(--space-lg);
+  padding: var(--space-sm) 0 0;
 }
 
 .timeline::after {
-  content: '→';
-  position: sticky;
-  right: 0;
-  align-self: center;
-  flex-shrink: 0;
-  padding: 0 var(--space-sm);
-  font-size: 1.5rem;
-  color: var(--muted);
-  pointer-events: none;
-  opacity: 0.6;
-}
-
-.timeline::before {
   content: '';
   position: absolute;
-  top: 10px;
-  left: 0;
-  right: 0;
-  height: 3px;
-  background: var(--timeline-track);
-  border-radius: 2px;
+  top: 0;
+  bottom: 0;
+  left: 9px;
+  width: 2px;
+  background: linear-gradient(to bottom, var(--success) 0 82%, var(--preview) 82% 100%);
+  opacity: 0.35;
+  pointer-events: none;
 }
 
 .timeline__item {
-  flex: 0 0 auto;
-  min-width: 220px;
-  max-width: 280px;
-  scroll-snap-align: start;
+  display: grid;
+  grid-template-columns: 28px minmax(0, 1fr);
+  gap: var(--space-sm);
+  align-items: start;
+  min-width: 0;
 }
 
 .timeline__marker {
@@ -578,7 +561,7 @@ section[id]:focus-visible {
   border-radius: 50%;
   background: var(--bg);
   border: 3px solid var(--timeline-marker-border);
-  margin: 0 auto var(--space-sm);
+  margin-top: 0.35rem;
   z-index: 1;
 }
 
@@ -593,11 +576,19 @@ section[id]:focus-visible {
 }
 
 .timeline__content {
-  background: var(--bg);
-  padding: var(--space-sm);
+  background: var(--surface);
+  padding: var(--space-sm) var(--space-md);
   border-radius: 12px;
+  border: 1px solid var(--surface-border);
   box-shadow: 0 2px 8px oklch(0 0 0 / 0.06);
-  text-align: center;
+  text-align: left;
+  max-width: 66ch;
+}
+
+.timeline__item--preview .timeline__content {
+  background: var(--preview-bg);
+  border-color: var(--preview);
+  box-shadow: none;
 }
 
 .state__badge {
@@ -917,12 +908,18 @@ section[id]:focus-visible {
     grid-template-columns: 1fr;
   }
 
-  .timeline {
-    padding-left: var(--space-sm);
+  .timeline::after {
+    left: 8px;
   }
 
   .timeline__item {
-    min-width: 200px;
+    grid-template-columns: 24px minmax(0, 1fr);
+    gap: var(--space-xs);
+    min-width: 0;
+  }
+
+  .timeline__content {
+    padding: var(--space-sm);
   }
 }
 
