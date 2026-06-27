@@ -264,27 +264,21 @@
         updateReactionsDOM(total, reactions);
       })
       .catch(function (err) {
-        // Populate reactions with static fallback chips
+        // Show reaction emojis as symbolic cues without fabricated counts
         var reactionsContainer = document.querySelector('.community__signal .community__reactions');
         if (reactionsContainer) {
           reactionsContainer.innerHTML = '';
-          var staticReactions = [
-            { emoji: '👍', count: 42 },
-            { emoji: '🎉', count: 28 },
-            { emoji: '🚀', count: 19 },
-            { emoji: '❤️', count: 15 },
-            { emoji: '👀', count: 11 }
-          ];
-          staticReactions.forEach(function (r) {
+          var staticEmojis = ['👍', '🎉', '🚀', '❤️', '👀'];
+          staticEmojis.forEach(function (emoji) {
             var span = document.createElement('span');
-            span.className = 'community__emoji';
+            span.className = 'community__emoji community__emoji--static';
             span.setAttribute('role', 'img');
-            span.setAttribute('aria-label', r.count + ' ' + r.emoji);
-            span.innerHTML = r.emoji + ' <strong>' + r.count + '</strong>';
+            span.setAttribute('aria-label', 'Reactions include ' + emoji);
+            span.textContent = emoji;
             reactionsContainer.appendChild(span);
           });
         }
-        console.log('GitHub reactions unavailable, showing static fallback:', err.message);
+        console.log('GitHub reactions unavailable, showing symbolic emoji cues:', err.message);
       });
   }
 

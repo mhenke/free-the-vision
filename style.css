@@ -1103,6 +1103,11 @@ section[id]:focus-visible {
   font-weight: 600;
 }
 
+.community__emoji--static {
+  font-size: 1.3rem;
+  opacity: 0.6;
+}
+
 @media (max-width: 768px) {
   .community__report {
     grid-template-columns: 1fr;
