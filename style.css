@@ -276,6 +276,7 @@ section[id]:focus-visible {
   text-align: center;
   padding: var(--space-xl) var(--space-sm) var(--space-lg);
   padding-top: calc(52px + var(--space-sm));
+  scroll-margin-top: 52px;
   background: linear-gradient(
     175deg,
     var(--primary) 0%,

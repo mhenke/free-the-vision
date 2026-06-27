@@ -363,7 +363,7 @@
       backToTop.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
         var nav = document.querySelector('.nav__logo');
-        if (nav) setTimeout(function () { nav.focus(); }, 500);
+        if (nav) setTimeout(function () { nav.focus({ preventScroll: true }); }, 500);
       });
     }
   });
