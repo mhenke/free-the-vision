@@ -1,0 +1,9 @@
+# Generated artifacts
+.impeccable/
+.playwright-mcp/
+.opencode/
+
+# Verification screenshots
+polish-verify.png
+verify-final.png
+verify-screenshot.png
