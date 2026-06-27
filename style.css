@@ -344,6 +344,13 @@ section[id]:focus-visible {
   transform-origin: center bottom;
 }
 
+@media (max-width: 640px) {
+  .hero__whale {
+    bottom: 8%;
+    font-size: clamp(64px, 10vw, 80px);
+  }
+}
+
 .hero__wave {
   position: absolute;
   bottom: 0;
