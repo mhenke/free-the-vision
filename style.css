@@ -1098,42 +1098,6 @@ section[id]:focus-visible {
   border: 1px solid var(--community-chip-border);
 }
 
-.community__fallback {
-  margin-top: var(--space-sm);
-  padding: var(--space-sm);
-  background: var(--quote-bg);
-  border: 1px solid var(--quote-border);
-  border-radius: 12px;
-  text-align: center;
-}
-
-.community__fallback[hidden] {
-  display: none;
-}
-
-.community__fallback-text {
-  font-size: var(--step-0);
-  color: var(--text-secondary);
-  margin-bottom: var(--space-xs);
-  font-style: italic;
-}
-
-.community__fallback-actions {
-  display: flex;
-  gap: 0.5em;
-  justify-content: center;
-  flex-wrap: wrap;
-}
-
-.community__fallback-actions .community__emoji {
-  font-size: 1.5rem;
-  padding: 0.25em 0.5em;
-  background: var(--community-chip-bg);
-  border: 1px solid var(--community-chip-border);
-  border-radius: 8px;
-  opacity: 0.7;
-}
-
 .community__emoji strong {
   font-family: var(--font-body);
   font-weight: 600;
