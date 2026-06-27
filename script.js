@@ -10,7 +10,7 @@
 
   // --- Days in Preview Counter ---
   function initDaysCounter() {
-    var els = document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]');
+    var els = document.querySelectorAll('.community__number[data-target], .community__metric-value[data-target]');
     els.forEach(function (el) {
       if (el.getAttribute('data-target') === '450') {
         var startDate = new Date('2025-03-01');
@@ -21,17 +21,17 @@
     });
   }
 
-  // --- Impact Number Count-Up ---
+  // --- Community Number Count-Up ---
   function initCountUp() {
     // Add aria-live to the live signal block for screen readers
-    var impactSignal = document.querySelector('.impact__signal');
-    if (impactSignal) {
-      impactSignal.setAttribute('aria-live', 'polite');
-      impactSignal.setAttribute('aria-atomic', 'true');
+    var communitySignal = document.querySelector('.community__signal');
+    if (communitySignal) {
+      communitySignal.setAttribute('aria-live', 'polite');
+      communitySignal.setAttribute('aria-atomic', 'true');
     }
 
     if (prefersReducedMotion) {
-      document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]').forEach(function (el) {
+      document.querySelectorAll('.community__number[data-target], .community__metric-value[data-target]').forEach(function (el) {
         var target = parseInt(el.getAttribute('data-target') || '0', 10);
         var suffix = el.getAttribute('data-suffix') || '';
 
@@ -79,7 +79,7 @@
       });
     }, { threshold: 0.3 });
 
-    document.querySelectorAll('.impact__number[data-target], .impact__metric-value[data-target]').forEach(function (el) {
+    document.querySelectorAll('.community__number[data-target], .community__metric-value[data-target]').forEach(function (el) {
       observer.observe(el);
     });
   }
@@ -264,7 +264,7 @@
         updateReactionsDOM(total, reactions);
       })
       .catch(function () {
-        var reactions = document.querySelector('.impact__signal .impact__reactions');
+        var reactions = document.querySelector('.community__signal .community__reactions');
         if (reactions) {
           reactions.style.display = 'none';
         }
@@ -272,10 +272,10 @@
   }
 
   function updateReactionsDOM(total, reactions) {
-    var targetSignal = document.querySelector('.impact__signal');
+    var targetSignal = document.querySelector('.community__signal');
     if (!targetSignal) return;
 
-    var numberEl = targetSignal.querySelector('.impact__number');
+    var numberEl = targetSignal.querySelector('.community__number');
     if (numberEl) {
       numberEl.setAttribute('data-target', String(total));
       if (prefersReducedMotion) {
@@ -284,12 +284,12 @@
       }
     }
 
-    var container = targetSignal.querySelector('.impact__reactions');
+    var container = targetSignal.querySelector('.community__reactions');
     if (container) {
       container.innerHTML = '';
       reactions.forEach(function (r) {
         var span = document.createElement('span');
-        span.className = 'impact__emoji';
+        span.className = 'community__emoji';
         span.setAttribute('role', 'img');
         span.setAttribute('aria-label', r.count + ' ' + r.emoji);
         span.innerHTML = r.emoji + ' <strong>' + r.count + '</strong>';
@@ -336,12 +336,18 @@
     var backToTop = document.querySelector('.back-to-top');
     if (backToTop) {
       var hero = document.querySelector('.hero');
+      var backToTopVisible = false;
+
+      function setBackToTopVisibility(visible) {
+        if (visible === backToTopVisible) return;
+        backToTopVisible = visible;
+        backToTop.hidden = !visible;
+        backToTop.classList.toggle('is-visible', visible);
+      }
+
+      setBackToTopVisibility(false);
       window.addEventListener('scroll', function () {
-        if (hero && window.scrollY > hero.offsetHeight) {
-          backToTop.classList.add('is-visible');
-        } else {
-          backToTop.classList.remove('is-visible');
-        }
+        setBackToTopVisibility(Boolean(hero && window.scrollY > hero.offsetHeight));
       });
       backToTop.addEventListener('click', function () {
         window.scrollTo({ top: 0, behavior: prefersReducedMotion ? 'auto' : 'smooth' });
