@@ -277,9 +277,11 @@
           fallbackContainer.removeAttribute('hidden');
         }
         
-        // Update signal text to show static numbers
+        // Update signal text to show static numbers (preserve live days count)
         if (signalText) {
-          signalText.innerHTML = '<span class="community__number" data-target="450" data-suffix="+">450+</span> days in preview, with <span class="community__number" data-target="8">8</span> voices demanding freedom.';
+          var daysEl = signalText.querySelector('.community__number[data-target="450"]');
+          var days = daysEl ? daysEl.textContent : '450+';
+          signalText.innerHTML = '<span class="community__number" data-target="450" data-suffix="+">' + days + '</span> days in preview, with <span class="community__number" data-target="8">8</span> voices demanding freedom.';
         }
         
         console.log('GitHub reactions unavailable:', err.message);
