@@ -263,11 +263,26 @@
         reactions.sort(function (a, b) { return b.count - a.count; });
         updateReactionsDOM(total, reactions);
       })
-      .catch(function () {
-        var reactions = document.querySelector('.community__signal .community__reactions');
-        if (reactions) {
-          reactions.style.display = 'none';
+      .catch(function (err) {
+        // Show fallback state instead of hiding
+        var reactionsContainer = document.querySelector('.community__signal .community__reactions');
+        var fallbackContainer = document.querySelector('.community__signal .community__fallback');
+        var signalText = document.querySelector('.community__signal-text');
+        
+        if (reactionsContainer) {
+          reactionsContainer.style.display = 'none';
         }
+        
+        if (fallbackContainer) {
+          fallbackContainer.removeAttribute('hidden');
+        }
+        
+        // Update signal text to show static numbers
+        if (signalText) {
+          signalText.innerHTML = '<span class="community__number" data-target="450" data-suffix="+">450+</span> days in preview, with <span class="community__number" data-target="8">8</span> voices demanding freedom.';
+        }
+        
+        console.log('GitHub reactions unavailable:', err.message);
       });
   }
 
